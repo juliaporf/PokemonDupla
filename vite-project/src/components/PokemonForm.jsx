@@ -1,46 +1,34 @@
-import { useState } from "react";
+import usePokemonForm from "../hooks/usePokemonForm";
 import "./PokemonForm.css";
 
 function PokemonForm({ onAddPokemon }) {
-  const [nome, setNome] = useState("");
-  const [tipo, setTipo] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [poder, setPoder] = useState("");
-  const [mensagem, setMensagem] = useState("");
-  const [erro, setErro] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (!nome || !tipo || !descricao || !poder) {
-      setErro("⚠️ Preencha todos os campos!");
-      setMensagem("");
-      return;
-    }
-
-    const novoPokemon = { nome, tipo, descricao, poder };
-    onAddPokemon(novoPokemon);
-
-    setMensagem("✅ Pokémon cadastrado com sucesso!");
-    setErro("");
-    setNome("");
-    setTipo("");
-    setDescricao("");
-    setPoder("");
-  };
+  const {
+    nome,
+    setNome,
+    tipo,
+    setTipo,
+    descricao,
+    setDescricao,
+    poder,
+    setPoder,
+    mensagem,
+    erro,
+    handleSubmit
+  } = usePokemonForm(onAddPokemon);
 
   return (
-    <form className="pokemon-form" onSubmit={handleSubmit}>
+    <form className="pokemon-form" onSubmit={handleSubmit} noValidate>
       <label>Nome do Pokémon:</label>
       <input
         type="text"
         value={nome}
         onChange={(e) => setNome(e.target.value)}
         placeholder="Ex: Pikachu"
+        required
       />
 
       <label>Tipo:</label>
-      <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+      <select value={tipo} onChange={(e) => setTipo(e.target.value)} required>
         <option value="">Selecione o tipo</option>
         <option value="🔥 Fogo">🔥 Fogo</option>
         <option value="💧 Água">💧 Água</option>
@@ -55,6 +43,7 @@ function PokemonForm({ onAddPokemon }) {
         value={descricao}
         onChange={(e) => setDescricao(e.target.value)}
         placeholder="Descreva o Pokémon..."
+        required
       />
 
       <label>Poder (0 a 100):</label>
@@ -64,6 +53,7 @@ function PokemonForm({ onAddPokemon }) {
         max="100"
         value={poder}
         onChange={(e) => setPoder(e.target.value)}
+        required
       />
 
       <button type="submit">Cadastrar Pokémon</button>
