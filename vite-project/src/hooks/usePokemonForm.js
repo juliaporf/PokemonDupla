@@ -51,6 +51,19 @@ export default function usePokemonForm(onAddPokemon) {
       criadoEm: new Date().toISOString()
     };
 
+    try {
+      const pokemonsAtuais = JSON.parse(localStorage.getItem('pokemons')) || [];
+
+      const novaLista = [...pokemonsAtuais, novoPokemon];
+
+      localStorage.setItem('pokemons', JSON.stringify(novaLista));
+
+    } catch (error) {
+        console.error("Falha ao salvar no localStorage", error);
+        setErro("Ocorreu um erro ao salvar o Pokémon.");
+        return;
+    }
+
     if (typeof onAddPokemon === "function") {
       onAddPokemon(novoPokemon);
     }
@@ -58,6 +71,7 @@ export default function usePokemonForm(onAddPokemon) {
     setMensagem("✅ Pokémon cadastrado com sucesso!");
     setErro("");
     resetForm();
+    window.location.reload()
   };
 
   return {
