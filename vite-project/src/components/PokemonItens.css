@@ -1,0 +1,25 @@
+.pokemon-itens {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: #ffffffdd;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+.pokemonvalues{
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    padding: 20px;
+}
+.value{
+    display: flex;
+    gap: 10px;
+}
+.decripition{
+    margin-left: 20px;
+}
